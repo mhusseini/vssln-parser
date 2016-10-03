@@ -2,13 +2,23 @@
 
 import {ProjectTypeMappings} from "./Mappings"
 
-var camelCase = require('camelcase');
+var camelCase = require('camelcase');
+var extend = require("extend");
+
+const sectionExpression = {
+    _regexp: /\((.+?)\)/g,
+    _attach: (parent, item, m) => parent[camelCase(m[0])] = item,
+    _factory: () => {
+        return {};
+    },
+    "*": /\s*(.+?)\s*=\s*(.+)\s*/g
+};
 
 export const Grammar = {
     solution: {
         project: "project",
         global: "global",
-        _camelCase:true,
+        _camelCase: true,
         "*": /\s*(.+?)\s*=\s*(.+)\s*/g
     },
     project: {
@@ -26,26 +36,10 @@ export const Grammar = {
         projectsection: "projectsection",
         endproject: null
     },
-    projectsection: {
-        _regexp: /\((.+?)\)/g,
-        _attach: (parent, item, m) => parent[camelCase(m[0])] = item,
-        _factory: () => {
-            return {};
-        },
-        endprojectsection: null,
-        "*": /\s*(.+?)\s*=\s*(.+)\s*/g
-    },
     global: {
         globalsection: "globalsection",
         endglobal: null
     },
-    globalsection: {
-        _regexp: /\((.+?)\)/g,
-        _attach: (parent, item, m) => parent[camelCase(m[0])] = item,
-        _factory: () => {
-            return {};
-        },
-        endglobalsection: null,
-        "*": /\s*(.+?)\s*=\s*(.+)\s*/g
-    }
+    projectsection: extend({endprojectsection: null}, sectionExpression),
+    globalsection: extend({endglobalsection: null}, sectionExpression)
 };
