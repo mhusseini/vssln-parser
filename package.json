@@ -29,6 +29,7 @@
   ],
   "dependencies": {
     "camelcase": "^3.0.0",
+    "event-stream": "^3.3.4",
     "extend": "^3.0.0"
   },
   "devDependencies": {
