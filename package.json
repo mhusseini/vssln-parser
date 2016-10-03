@@ -1,0 +1,51 @@
+{
+  "name": "vsssln-parser",
+  "description": "Parses Visual Studio Solution (sln) files and returns information about projects and project dependencies.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/mhusseini/vssln-parser",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mhusseini/vssln-parser.git"
+  },
+  "author": {
+    "name": "Munir Husseini",
+    "email": "mhusseini@softwareproduction.eu",
+    "url": "http://softwareproduction.eu/"
+  },
+  "tags": [
+    "visual studio",
+    "sln",
+    "solution",
+    "parse",
+    "tool",
+    "asset",
+    "projects"
+  ],
+  "files": [
+    "dist/js"
+  ],
+  "bin": {
+    "gulp": "./dist/js/index.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "event-stream": "^3.3.4",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-typescript": "^3.0.2",
+    "merge2": "^1.0.2",
+    "mocha": "^3.1.0",
+    "run-sequence": "^1.2.2",
+    "typescript": "^2.0.3"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/mhusseini/vssln-parser/issues"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha dist/test --reporter spec"
+  }
+}
