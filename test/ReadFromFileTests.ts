@@ -3,13 +3,13 @@ import {VsSolutionFile} from "../src/solution-items/VsSolutionFile";
 
 var expect: Chai.ExpectStatic = require('chai').expect;
 var fs = require('fs');
-var parse = require("../../").parse;
+var vsslnparse = require("../../");
 
 describe('Read from string', function () {
     let solution: VsSolutionFile;
     before(done => {
         const text = fs.readFileSync("dist/test/test.sln", "utf8");
-        parse(text, result => {
+        vsslnparse(text, result => {
             solution = result;
             done();
         });
