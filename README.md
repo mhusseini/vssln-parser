@@ -3,7 +3,8 @@ Parses Visual Studio Solution (sln) files and returns information about projects
 
 ## Installation
 Install package with NPM and add it to your development dependencies:
-```npm install vssln-parser --save-dev```
+
+`npm install vssln-parser --save-dev`
 
 ## Usage
 ```typescript
