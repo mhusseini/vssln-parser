@@ -5,7 +5,7 @@ var expect: Chai.ExpectStatic = require('chai').expect;
 var fs = require('fs');
 var parse = require("../../").parse;
 
-describe('Sln Reader', function () {
+describe('Read from stream', function () {
     let solution: VsSolutionFile;
     before(done => {
         const stream = fs.createReadStream("dist/test/test.sln");

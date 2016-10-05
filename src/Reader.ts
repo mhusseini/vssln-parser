@@ -10,16 +10,19 @@ var camelCase = require('camelcase');
 const regex_line = /\w+/g;
 export class Reader {
     private text: string;
-    private stream: ReadableStream;
+    private input: ReadableStream | string;
     private state: any[];
     private solution: VsSolutionFile;
     private objects: any[];
 
-    constructor(stream: ReadableStream,
+    constructor(input: ReadableStream | string,
                 private callback: (result: VsSolutionFile) => void) {
         this.text = "";
-        stream.setEncoding("utf8");
-        this.stream = stream;//byline(stream, {encoding: 'utf8'});
+        if (input["setEncoding"]) {
+            input["setEncoding"]("utf8");
+        }
+
+        this.input = input;
 
         this.solution = {
             projects: []
@@ -48,21 +51,26 @@ export class Reader {
         // in 'on("end"...)' the keyword "this" points to the
         // stream, not the SlnReader. I don't know why.
         const $this = this;
+        if (typeof this.input === "string") {
+            const text = this.input as string;
+            text.split(/\r?\n/).forEach(line => this.readLine(line));
+            $this.callback($this.solution);
+        }
+        else {
+            const stream = this.input as ReadableStream;
+            stream
+                .pipe(es.split())
+                .pipe(es.mapSync(line => {
+                    stream.pause();
+                    this.readLine(line);
+                    stream.resume();
+                }))
 
-        this.stream
-            .pipe(es.split())
-            .pipe(es.mapSync(line => {
-                this.stream.pause();
-                this.readLine(line);
-                this.stream.resume();
-            }))
-
-            //.on("data", this.readLine)
-            .on("end", () => {
-                $this.stream = null;
-                $this.callback($this.solution);
-                $this.callback = null;
-            });
+                //.on("data", this.readLine)
+                .on("end", () => {
+                    $this.callback($this.solution);
+                });
+        }
     };
 
     private readLine = line => {
