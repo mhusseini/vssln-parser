@@ -7,12 +7,32 @@ Install package with NPM and add it to your development dependencies:
 `npm install vssln-parser --save-dev`
 
 ## Usage
+
+# From stream
 ```typescript
 var parse = require('vssln-parser').parse;
 var fs = require('fs');
     
 const stream = fs.createReadStream("test.sln");
 parse(stream, solution => {
+    for(let project of solution.projects) {
+        console.log(project.name);
+        console.log(project.type);
+        
+        for(let dependency of project.projectDependencies) {
+            console.log(dependency);
+        }
+    }
+});
+```
+
+# From string
+```typescript
+var parse = require('vssln-parser').parse;
+var fs = require('fs');
+    
+const text = fs.readFileSync("test.sln", "utf-8");
+parse(text, solution => {
     for(let project of solution.projects) {
         console.log(project.name);
         console.log(project.type);

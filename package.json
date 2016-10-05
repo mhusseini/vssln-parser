@@ -1,7 +1,7 @@
 {
   "name": "vssln-parser",
   "description": "Parses Visual Studio Solution (sln) files and returns information about projects and project dependencies.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/mhusseini/vssln-parser",
   "repository": {
     "type": "git",

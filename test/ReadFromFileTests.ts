@@ -5,7 +5,7 @@ var expect: Chai.ExpectStatic = require('chai').expect;
 var fs = require('fs');
 var parse = require("../../").parse;
 
-describe('Read from stream', function () {
+describe('Read from string', function () {
     let solution: VsSolutionFile;
     before(done => {
         const text = fs.readFileSync("dist/test/test.sln", "utf8");
